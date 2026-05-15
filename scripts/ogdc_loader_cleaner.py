@@ -29,7 +29,7 @@ OUTPUT_DIR = os.path.join(BASE, "..", "data", "processed")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 OUT_CSV = os.path.join(OUTPUT_DIR, "ogdc_cleaned.csv")
 # Image Directory
-IMG_DIR = os.path.join(BASE, "images")
+IMG_DIR = os.path.join(BASE, "..", "outputs", "images")
 os.makedirs(IMG_DIR, exist_ok=True)
 IMG_PRE = os.path.join(IMG_DIR, "trend_")
 

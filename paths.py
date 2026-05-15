@@ -46,6 +46,7 @@ PATHS = {
     "scripts":    os.path.join(ROOT, "scripts"),
 }
 
+'''
 def ensure_dirs():
     """Create all directories if they don't already exist."""
     for key, path in PATHS.items():
@@ -53,7 +54,7 @@ def ensure_dirs():
 
 # Run on import so every script automatically creates the folder structure
 ensure_dirs()
-
+'''
 
 def img(filename):
     """Return full path for an output image file."""
