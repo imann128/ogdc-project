@@ -94,7 +94,7 @@ Creates a `dist/` folder of optimised static files. This is what you deploy.
 
 ## Deployment Options
 
-### Option A — Vercel (Recommended, easiest)
+### Option A — Vercel
 
 1. Push this project to GitHub
 2. Go to https://vercel.com → "New Project"
@@ -102,7 +102,7 @@ Creates a `dist/` folder of optimised static files. This is what you deploy.
 4. Vercel auto-detects Vite — click Deploy
 5. Done. You get a URL like `ogdc-analytics.vercel.app`
 
-Everything is configured in `vercel.json` already.
+Everything is configured in `vercel.json` already. This dashboard is deployed on Vercel
 
 ### Option B — Netlify
 
@@ -112,19 +112,7 @@ Everything is configured in `vercel.json` already.
 4. Click Deploy
 
 Or drag-and-drop the `dist/` folder onto https://app.netlify.com/drop
-
-### Option C — GitHub Pages
-
-Add this to `vite.config.js`:
-```js
-base: "/your-repo-name/",
-```
-Then:
-```bash
-npm run build
-# Push the dist/ folder to the gh-pages branch
-npx gh-pages -d dist
-```
+This dashboard is not deployed on netlify but has a netlify.toml file if user wishes to deploy.
 
 ---
 

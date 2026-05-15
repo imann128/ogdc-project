@@ -331,17 +331,6 @@ Output is in `frontend/dist/`.
 
 ---
 
-## Word Report
-
-```bash
-cd scripts
-node build_report.js
-```
-
-Generates `outputs/reports/STAT222_OGDC_Project_Report.docx`. Requires the `docx` package (`npm install -g docx`). The IEEE-format research report is at `outputs/reports/OGDC_IEEE_Report.docx`.
-
----
-
 ## Limitations
 
 **Data leakage:** The `ChangeP` column in the raw Investing.com CSV is numerically equivalent to the daily return — including it as a feature makes the classification target trivially predictable (~99.7% accuracy). `ogdc_enhanced_ml.py` evaluates models with this column excluded. The honest accuracy without it is 53–54%.
