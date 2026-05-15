@@ -8,7 +8,7 @@ Interactive frontend for the full OGDC stock price analysis project covering EDA
 ## Project Structure
 
 ```
-ogdc-analytics/
+ogdc-project/
 │
 ├── public/                    ← Static files served as-is
 │   ├── price_data.json        ← Full OGDC price series (from Python)
@@ -47,7 +47,7 @@ Download Node from https://nodejs.org if needed.
 ### Step 2 — Install dependencies
 ```bash
 # Navigate into the project folder
-cd ogdc-analytics
+cd ogdc-project
 
 # Install everything listed in package.json
 # This creates the node_modules/ folder (takes ~30 seconds)
