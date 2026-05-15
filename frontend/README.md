@@ -1,6 +1,5 @@
 # 📈 OGDC Analytics Dashboard
 
-**BSDS-02 · STAT-222 Advanced Statistics · Semester Project**
 
 Interactive frontend for the full OGDC stock price analysis project covering EDA, ANOVA, Distribution Fitting, Multiple Regression, ARIMA, GARCH, ML Models, Backtesting, Sentiment Analysis, and Enhanced ML.
 
