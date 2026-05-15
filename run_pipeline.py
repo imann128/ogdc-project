@@ -23,6 +23,8 @@ Steps:
 """
 
 import subprocess, sys, os, time
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from paths import ensure_dirs
 
 ROOT    = os.path.dirname(os.path.abspath(__file__))
 SCRIPTS = os.path.join(ROOT, "scripts")
@@ -57,6 +59,9 @@ def run_step(n, script, label):
     return True
 
 def main():
+    # Create all output directories once before any step runs
+    ensure_dirs()
+
     # Parse --step args
     requested = set()
     args = sys.argv[1:]

@@ -153,6 +153,43 @@ npm install -g docx
 
 Each script reads from `data/processed/` and writes back to `data/processed/` or `outputs/images/`. Run in order — later scripts depend on files produced by earlier ones.
 
+### Using the master runner (recommended)
+
+Run everything from the project root:
+
+```bash
+python run_pipeline.py
+```
+
+Run a single step by number:
+
+```bash
+python run_pipeline.py --step 2
+```
+
+Run multiple specific steps:
+
+```bash
+python run_pipeline.py --step 1 4 5
+```
+
+Steps have dependencies. If you skip a step, any later step that relies on its output will fail. Always start from the earliest step in the dependency chain your target script needs.
+
+| Step | Script | Description |
+|------|--------|-------------|
+| 1 | `ogdc_loader_cleaner.py` | Load & clean raw CSV |
+| 2 | `ogdc_analysis.py` | Feature engineering + ML models |
+| 3 | `ogdc_stat222.py` | STAT-222 statistical tests |
+| 4 | `ogdc_trend_analysis.py` | Moving averages, BB, volatility |
+| 5 | `ogdc_garch.py` | GARCH volatility modelling |
+| 6 | `ogdc_backtest.py` | Bollinger Band backtesting |
+| 7 | `ogdc_model_comparison.py` | Cross-model comparison + markdown report |
+| 8 | `ogdc_enhanced_ml.py` | Enhanced ML with trend features |
+| 9 | `ogdc_contradiction_analysis.py` | Sentiment contradiction analysis |
+| 10 | `export_frontend_data.py` | Export JSON data for React frontend |
+
+### Running scripts individually
+
 ```bash
 python scripts/ogdc_loader_cleaner.py
 python scripts/ogdc_analysis.py

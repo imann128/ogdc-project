@@ -15,7 +15,6 @@ Output:
 import sys, os, shutil, json
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from paths import processed, img, frontend, PATHS, ensure_dirs
-ensure_dirs()
 
 
 # ── Paths ─────────────────────────────────────────────────────────────────────

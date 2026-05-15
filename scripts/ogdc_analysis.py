@@ -19,7 +19,7 @@ Note: XGBoost is unavailable in this environment; scikit-learn's
 import sys, os, shutil, json
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from paths import processed, img, frontend, PATHS, ensure_dirs
-ensure_dirs()
+
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 BASE  = os.path.dirname(os.path.abspath(__file__)) # Scripts
@@ -245,7 +245,7 @@ tscv_tv    = TimeSeriesSplit(n_splits=5)   # CV within train+val
 tscv_tv3   = TimeSeriesSplit(n_splits=3)
 
 # ── Model 1: Random Forest ────────────────────────────────────────────────────
-section("MODEL 1 — RANDOM FOREST CLASSIFIER")
+section("Model 1 — Random Forest Classifier")
 
 rf = RandomForestClassifier(
     n_estimators=200, max_depth=6, random_state=RANDOM_STATE, n_jobs=-1
@@ -277,7 +277,7 @@ ax.set_ylabel("Importance"); ax.tick_params(axis="x", rotation=35)
 plt.tight_layout(); save(fig, "ogdc_rf_feature_importance.png")
 
 # ── Model 2: GBM Classifier ───────────────────────────────────────────────────
-section("MODEL 2 — GBM CLASSIFIER  (hyperparams tuned on train+val CV)")
+section("Model 2 — GBM Classifier  (hyperparams tuned on train+val CV)")
 
 gbm_grid = {"max_depth":[3,5], "learning_rate":[0.05,0.1], "n_estimators":[100,200]}
 gbm_cv   = GridSearchCV(
@@ -480,7 +480,7 @@ fe.to_csv(OUTPUT_CSV)
 print(f"  Saved ogdc_with_regimes.csv  ({len(fe)} rows)")
 
 # ── Summary ───────────────────────────────────────────────────────────────────
-section("SUMMARY")
+section("Summary")
 print(f"""
   Split       Rows    Start         End
   Train       {len(train):<6}  {train.index.min().date()}  {train.index.max().date()}
