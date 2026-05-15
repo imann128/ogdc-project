@@ -1,0 +1,6 @@
+scenario,count,followed_rec_%,followed_sent_%,model_acc_%,sent_acc_%
+all sources (14),14,n/a,n/a,70.0%,0.0%
+contradiction only (4),0,nan%,nan%,n/a,n/a
+aligned only (10),0,n/a,n/a,n/a,n/a
+buy + negative outlook (0),0,n/a,n/a,n/a,n/a
+sell + positive outlook (0),0,n/a,n/a,n/a,n/a

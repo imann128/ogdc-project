@@ -1,0 +1,12 @@
+{
+  "latestPrice": 270.59,
+  "totalReturn": 89.33,
+  "sharpe": 0.453,
+  "maxDrawdown": -54.9,
+  "currentHV": 54.73,
+  "observations": 1552,
+  "meanDailyRet": 0.075,
+  "stdDailyRet": 2.6294,
+  "dateStart": "2020-01-01",
+  "dateEnd": "2026-04-03"
+}

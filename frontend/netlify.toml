@@ -1,0 +1,23 @@
+# netlify.toml
+# ─────────────────────────────────────────────────────────────────────────────
+# Tells Netlify how to build and serve your React app.
+# Netlify reads this file automatically when you connect your GitHub repo.
+# ─────────────────────────────────────────────────────────────────────────────
+
+[build]
+  # The command Netlify runs to build your app
+  command = "npm run build"
+
+  # The folder Netlify serves after building
+  # Vite always outputs to /dist
+  publish = "dist"
+
+[[redirects]]
+  # This is CRITICAL for single-page apps.
+  # Without it, visiting /garch directly returns a 404
+  # because Netlify looks for a real file at that path.
+  # This rule says: for any URL, serve index.html
+  # and let React Router handle routing client-side.
+  from = "/*"
+  to = "/index.html"
+  status = 200

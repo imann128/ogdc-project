@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- Favicon emoji -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>" />
+
+    <!-- Makes the app look correct on mobile screens -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Tab title and SEO -->
+    <title>OGDC Analytics | BSDS-02 STAT-222</title>
+    <meta name="description" content="OGDC Stock Price Analysis — Advanced Statistics Semester Project. Covers EDA, ANOVA, Distribution Fitting, Regression, ARIMA, GARCH, ML Models, and Backtesting." />
+
+    <!-- Space Mono font from Google Fonts (loaded here so it's available globally) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Global resets applied before React loads */
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { height: 100%; }
+      body {
+        background: #02060f;
+        color: #e2f0ff;
+        font-family: 'Space Mono', monospace;
+        /* Prevent flash of unstyled content */
+        opacity: 1;
+      }
+
+      /* Loading spinner shown before React hydrates */
+      #root:empty::after {
+        content: "";
+        display: block;
+        width: 40px; height: 40px;
+        margin: 40vh auto;
+        border-radius: 50%;
+        border: 3px solid #0a1628;
+        border-top-color: #00e5ff;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+  </head>
+
+  <body>
+    <!--
+      This single <div> is where React mounts the entire app.
+      React replaces its contents with your components.
+    -->
+    <div id="root"></div>
+
+    <!--
+      Vite injects the compiled JS bundle here automatically during build.
+      In dev mode it points to the dev server.
+    -->
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

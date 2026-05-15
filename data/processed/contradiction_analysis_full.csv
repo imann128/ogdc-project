@@ -1,0 +1,15 @@
+id,source,date,sentiment_score,sentiment_label,recommendation,outlook,contradiction_flag,contradiction_type,key_phrase,d1_return_%,d3_return_%,d5_return_%,d10_return_%,actual_direction_d1,model_direction,model_confidence,model_pred_return_%,model_correct,sentiment_correct,market_followed,contra_market_d1_orig,contra_market_d10_orig
+1,KSEStocks Blog,25-02-20,0.0,Neutral,none,Mixed,NO,nan,Neither going up nor down,-1.01,4.16,3.56,8.68,down,down,0.1658,-0.0482,yes,no,n/a (aligned),nan,nan
+2,StockAnalysis.com,26-03-13,0.43,Positive,none,Mixed,NO,nan,Revenue −13.48% yet 25.71% 1Y return,-4.11,2.44,1.25,-0.9,down,down,0.1635,-0.5369,yes,no,n/a (aligned),nan,nan
+3,Investing.com Technical,26-03-10,0.82,Positive,Strong Buy,Positive,NO,nan,nan,-1.85,-5.37,-9.0,-5.01,down,up,0.89,5.8866,no,no,n/a (aligned),nan,nan
+4,TradingView Community Ideas,26-03-12,0.71,Positive,Buy,Mixed,NO,nan,10 Long ideas vs 3 Short ideas,-0.63,-4.43,0.65,-4.12,down,down,0.1962,-2.9706,yes,no,n/a (aligned),nan,nan
+5,YouTube Video,n/a,0.4,Positive,Buy,Positive,NO,nan,nan,,,,,unknown,n/a,,,n/a (pre-test),unknown,n/a (aligned),nan,nan
+6,DefencePK Forum,25-01-01,0.53,Positive,none,Positive,NO,nan,nan,-1.75,-6.54,-6.81,-2.95,down,up,0.7788,0.8187,no,no,n/a (aligned),nan,nan
+7,Quora — Blue-Chip List,n/a,0.33,Positive,Hold,Positive,NO,nan,nan,,,,,unknown,n/a,,,n/a (pre-test),unknown,n/a (aligned),nan,nan
+8,TradersUnion Forecast,26-03-12,-0.35,Negative,Sell,Negative,NO,nan,nan,-0.63,-4.43,0.65,-4.12,down,down,0.1962,-2.9706,yes,no,n/a (aligned),nan,nan
+9,Mettis Global — Q4FY24 Profit Collapse,24-10-04,-0.6,Negative,none,Negative,NO,nan,nan,9.52,9.62,9.72,6.67,up,up,0.9158,2.9614,yes,no,n/a (aligned),nan,nan
+10,Dawn.com — OGDCL Profit Slumps 33pc,25-03-01,-0.67,Negative,none,Negative,NO,nan,nan,-0.39,0.15,5.29,2.82,down,down,0.1283,-0.3851,yes,no,n/a (aligned),nan,nan
+11,Mettis Global — FY25 Profit Falls,25-09-23,-0.13,Neutral,Implicit Buy,Negative,YES,Buy + Negative Outlook,profit falls 18.7% ... yet highest-ever dividend of Rs15.05/share,0.05,-0.77,-1.94,-4.02,up,up,0.9143,0.7345,yes,no,n/a (aligned),followed_recommendation,followed_outlook
+12,ProPakistani — FY24 Profit Falls 7%,24-09-23,-0.07,Neutral,Implicit Buy,Negative,YES,Buy + Negative Outlook,"profit falls 7% yet topline up 12%, Arif Habib framing supportive",0.19,2.69,3.34,21.5,up,down,0.0677,-1.4557,no,no,n/a (aligned),followed_recommendation,followed_recommendation
+13,Insight Research / Topline Securities,n/a,0.47,Positive,Buy,Negative,YES,Buy + Negative Outlook,18.7% drop in net profit … brokerages reiterated Buy citing EV/EBITDA 1.1x and dividend powerhouse,,,,,unknown,n/a,,,n/a (pre-test),unknown,n/a (aligned),nan,followed_outlook
+14,IGI Securities Strategy Report,n/a,0.33,Positive,Buy,Negative,YES,Buy + Negative Outlook,massive circular debt severely impacting cash flow … analysts encouraged investment based on Settlement Plan,,,,,unknown,n/a,,,n/a (pre-test),unknown,n/a (aligned),nan,followed_outlook

@@ -1,0 +1,7 @@
+type,model,acc,auc,mae,rmse,r2,da
+classification,rf [original],1.0,1.0,,,,
+classification,gbm [original],1.0,1.0,,,,
+classification,rf [enhanced],0.9962546816479401,1.0,,,,
+classification,gbm [enhanced],0.6217228464419475,0.625925925925926,,,,
+regression,gbm reg [original],,,0.03286524605227985,0.18313573002687827,0.9934822615887315,100.0
+regression,gbm reg [enhanced],,,0.042454003467772325,0.1814808101133632,0.9935995254270746,100.0
