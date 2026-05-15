@@ -1,7 +1,7 @@
 {
   "name": "ogdc-analytics",
   "version": "1.0.0",
-  "description": "OGDC Stock Analytics Dashboard — BSDS-02 STAT-222 Semester Project",
+  "description": "OGDC Stock Analytics Dashboard",
   "type": "module",
   "scripts": {
     "dev": "vite",
