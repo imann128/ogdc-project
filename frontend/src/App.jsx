@@ -190,8 +190,6 @@ const SECTIONS = [
     icon: "◇",
     color: "#f472b6",
     charts: [
-      { file: "contra_01_contradiction_outcomes.png", title: "Contradiction Market Outcomes",
-        desc: "Followed Rec vs Sentiment, D+1/D+3/D+5/D+10 returns per source" },
       { file: "contra_02_source_matrix.png",          title: "14-Source Signal Matrix",
         desc: "Heatmap: Sentiment, Rec, Outlook, Contradiction flag, Model accuracy" },
       { file: "contra_03_d10_returns_timeline.png",   title: "D+10 Returns Timeline",

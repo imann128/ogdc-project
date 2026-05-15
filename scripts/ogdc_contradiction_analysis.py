@@ -535,52 +535,6 @@ colors = {
     "flat": "#FFC107",
 }
 
-# plot 1: who did the market follow on contradiction days?
-fig, axes = plt.subplots(1, 2, figsize=(13, 5))
-
-# left: d+1 / d+10 for dated contradiction rows
-ax = axes[0]
-outcomes_d1  = {"followed rec": all_contra_recs, "followed outlook": all_contra_sent,
-                 "unknown/neither": n_contra - all_contra_recs - all_contra_sent}
-bars = ax.bar(outcomes_d1.keys(), outcomes_d1.values(),
-              color=["#2196F3","#FF5722","#9E9E9E"], edgecolor="white", width=0.5)
-for bar, v in zip(bars, outcomes_d1.values()):
-    pct = v / n_contra * 100 if n_contra > 0 else 0
-    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.05,
-            f"{v}\n({pct:.0f}%)", ha="center", va="bottom", fontsize=11, fontweight="bold")
-ax.set_title("market outcome on contradiction days\n(d+10 horizon, all 4 sources)", fontweight="bold")
-ax.set_ylabel("number of sources")
-ax.set_ylim(0, n_contra + 1)
-ax.grid(axis="y", alpha=0.3)
-
-# right: price window return for each contradiction source
-ax = axes[1]
-contra_plot = full_df[full_df["contradiction_flag"] == "yes"].copy()
-contra_plot["label"] = contra_plot.apply(
-    lambda r: f"id {r['id']}\n{str(r['source'])[:22]}", axis=1)
-windows = ["d1_return_%","d3_return_%","d5_return_%","d10_return_%"]
-w_labels = ["d+1","d+3","d+5","d+10"]
-
-x = np.arange(len(contra_plot))
-w = 0.18
-palette = ["#1565C0","#1976D2","#42A5F5","#90CAF9"]
-for i, (col, lbl) in enumerate(zip(windows, w_labels)):
-    vals = contra_plot[col].values.astype(float)
-    bars = ax.bar(x + (i - 1.5) * w, vals, w, label=lbl,
-                  color=palette[i], edgecolor="white", alpha=0.85)
-
-ax.axhline(0, color="black", linewidth=1, alpha=0.5)
-ax.set_xticks(x)
-ax.set_xticklabels(contra_plot["label"], fontsize=7)
-ax.set_title("price window returns — contradiction sources", fontweight="bold")
-ax.set_ylabel("cumulative return (%)")
-ax.legend(fontsize=8)
-ax.grid(axis="y", alpha=0.3)
-
-fig.suptitle("ogdc contradiction analysis — market outcomes", fontsize=14, fontweight="bold")
-plt.tight_layout()
-save_fig(fig, "01_contradiction_outcomes.png")
-
 # plot 2: full source matrix heatmap
 fig, ax = plt.subplots(figsize=(14, 6))
 
