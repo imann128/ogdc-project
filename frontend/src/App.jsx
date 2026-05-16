@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 import {
-  LineChart, Line, AreaChart, Area, BarChart, Bar, Cell,
+  Line, AreaChart, Area, BarChart, Bar, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend,
   ResponsiveContainer, ReferenceLine, ComposedChart,
 } from "recharts";
@@ -250,27 +251,18 @@ const STAT_RESULTS = [
 // COMPONENTS
 // ══════════════════════════════════════════════════════════════════════════════
 
-function KpiCard({ label, value, sub, delta, color = C.cyan }) {
+function KpiCard({ label, value, sub, delta, color }) {
   return (
-    <div style={{
+    <div className="kpi-card" style={{
       background: `linear-gradient(135deg, ${C.bg2} 0%, ${C.bg3} 100%)`,
       border: `1px solid ${color}28`,
       borderRadius: 14,
       padding: "18px 22px",
       position: "relative",
       overflow: "hidden",
-      transition: "transform 0.2s, box-shadow 0.2s",
       cursor: "default",
-    }}
-      onMouseEnter={e => {
-        e.currentTarget.style.transform = "translateY(-3px)";
-        e.currentTarget.style.boxShadow = `0 12px 40px ${color}22`;
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.boxShadow = "none";
-      }}
-    >
+      "--kpi-shadow": `0 12px 40px ${color}22`,
+    }}>
       {/* glow blob */}
       <div style={{
         position: "absolute", top: -20, right: -20,
@@ -297,9 +289,18 @@ function KpiCard({ label, value, sub, delta, color = C.cyan }) {
   );
 }
 
+KpiCard.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  sub:   PropTypes.string,
+  delta: PropTypes.number,
+  color: PropTypes.string,
+};
+KpiCard.defaultProps = { sub: null, delta: null, color: C.cyan };
+
 function SectionBadge({ section, active, onClick }) {
   return (
-    <button onClick={onClick} style={{
+    <button onClick={onClick} className={`section-badge${active ? " active" : ""}`} style={{
       display: "flex", alignItems: "center", gap: 8,
       padding: "10px 16px", borderRadius: 10,
       background: active ? `${section.color}18` : "transparent",
@@ -308,38 +309,48 @@ function SectionBadge({ section, active, onClick }) {
       fontSize: 13, fontWeight: 600, cursor: "pointer",
       transition: "all 0.18s", whiteSpace: "nowrap",
       fontFamily: "'Space Mono', monospace",
-    }}
-      onMouseEnter={e => { if (!active) { e.currentTarget.style.background = `${section.color}0e`; e.currentTarget.style.borderColor = `${section.color}33`; } }}
-      onMouseLeave={e => { if (!active) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = C.border; } }}
-    >
+    }}>
       <span style={{ fontSize: 16 }}>{section.icon}</span>
       {section.label}
     </button>
   );
 }
 
+SectionBadge.propTypes = {
+  section: PropTypes.shape({
+    color: PropTypes.string.isRequired,
+    icon:  PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  }).isRequired,
+  active:  PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
+
 function ChartCard({ chart, sectionColor }) {
   const [expanded, setExpanded] = useState(false);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") setExpanded(true);
+  };
+  const handleCloseKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " " || e.key === "Escape") setExpanded(false);
+  };
+
   return (
-    <div style={{
+    <div className="chart-card" style={{
       background: `linear-gradient(135deg, ${C.bg2} 0%, ${C.bg3} 100%)`,
       border: `1px solid ${C.border}`,
       borderRadius: 14, overflow: "hidden",
-      transition: "border-color 0.2s, box-shadow 0.2s",
-    }}
-      onMouseEnter={e => {
-        e.currentTarget.style.borderColor = `${sectionColor}44`;
-        e.currentTarget.style.boxShadow = `0 8px 32px ${sectionColor}15`;
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.borderColor = C.border;
-        e.currentTarget.style.boxShadow = "none";
-      }}
-    >
+      "--chart-shadow": `0 8px 32px ${sectionColor}15`,
+      "--chart-border": `${sectionColor}44`,
+    }}>
       <img
         src={`/${chart.file}`}
         alt={chart.title}
+        role="button"
+        tabIndex={0}
         onClick={() => setExpanded(true)}
+        onKeyDown={handleKeyDown}
         style={{ width: "100%", display: "block", cursor: "zoom-in",
                  background: "#040810" }}
         onError={e => { e.target.style.display = "none"; }}
@@ -356,11 +367,19 @@ function ChartCard({ chart, sectionColor }) {
 
       {/* Lightbox */}
       {expanded && (
-        <div onClick={() => setExpanded(false)} style={{
-          position: "fixed", inset: 0, background: "#000000dd",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          zIndex: 9999, cursor: "zoom-out", backdropFilter: "blur(4px)",
-        }}>
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Expanded view of ${chart.title}`}
+          tabIndex={0}
+          onClick={() => setExpanded(false)}
+          onKeyDown={handleCloseKeyDown}
+          style={{
+            position: "fixed", inset: 0, background: "#000000dd",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            zIndex: 9999, cursor: "zoom-out", backdropFilter: "blur(4px)",
+          }}
+        >
           <img src={`/${chart.file}`} alt={chart.title}
                style={{ maxWidth: "92vw", maxHeight: "90vh", borderRadius: 12,
                         boxShadow: `0 0 80px ${sectionColor}33` }} />
@@ -374,6 +393,15 @@ function ChartCard({ chart, sectionColor }) {
     </div>
   );
 }
+
+ChartCard.propTypes = {
+  chart: PropTypes.shape({
+    file:  PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    desc:  PropTypes.string.isRequired,
+  }).isRequired,
+  sectionColor: PropTypes.string.isRequired,
+};
 
 function FindingsList({ findings, color }) {
   return (
@@ -389,8 +417,8 @@ function FindingsList({ findings, color }) {
                   fontFamily: "'Space Mono', monospace" }}>
         Key Findings
       </p>
-      {findings.map((f, i) => (
-        <div key={i} style={{ display: "flex", gap: 10, marginBottom: 8 }}>
+      {findings.map((f) => (
+        <div key={f.slice(0, 40)} style={{ display: "flex", gap: 10, marginBottom: 8 }}>
           <span style={{ color: color, fontSize: 12, marginTop: 2, flexShrink: 0 }}>◆</span>
           <p style={{ margin: 0, fontSize: 12.5, color: C.textSecondary, lineHeight: 1.6 }}>{f}</p>
         </div>
@@ -398,6 +426,11 @@ function FindingsList({ findings, color }) {
     </div>
   );
 }
+
+FindingsList.propTypes = {
+  findings: PropTypes.arrayOf(PropTypes.string).isRequired,
+  color:    PropTypes.string.isRequired,
+};
 
 // ── Custom Recharts tooltip ───────────────────────────────────────────────────
 function CustomTooltip({ active, payload, label }) {
@@ -409,14 +442,26 @@ function CustomTooltip({ active, payload, label }) {
       fontFamily: "'Space Mono', monospace", fontSize: 11,
     }}>
       <p style={{ margin: "0 0 6px", color: C.textSecondary }}>{label}</p>
-      {payload.map((p, i) => (
-        <p key={i} style={{ margin: "2px 0", color: p.color || C.cyan }}>
+      {payload.map((p) => (
+        <p key={p.dataKey || p.name} style={{ margin: "2px 0", color: p.color || C.cyan }}>
           {p.name}: <strong>{typeof p.value === "number" ? p.value.toFixed(2) : p.value}</strong>
         </p>
       ))}
     </div>
   );
 }
+
+CustomTooltip.propTypes = {
+  active:  PropTypes.bool,
+  payload: PropTypes.arrayOf(PropTypes.shape({
+    dataKey: PropTypes.string,
+    name:    PropTypes.string,
+    value:   PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    color:   PropTypes.string,
+  })),
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+};
+CustomTooltip.defaultProps = { active: false, payload: [], label: "" };
 
 // ══════════════════════════════════════════════════════════════════════════════
 // PAGES
@@ -435,7 +480,7 @@ function OverviewPage({ priceData, kpis, annualStats }) {
         <KpiCard label="Annual Sharpe"  value={kpis.sharpe}                sub="Daily mean / std × √252" color={C.purple} />
         <KpiCard label="Max Drawdown"   value={`${kpis.maxDrawdown}%`}     sub="Peak-to-trough"       color={C.red}    />
         <KpiCard label="Current HV-20"  value={`${kpis.currentHV}%`}       sub="Annualised volatility" color={C.amber}  />
-        <KpiCard label="Observations"   value={kpis.observations.toLocaleString()} sub="Trading days"  color={C.cyan}   />
+        <KpiCard label="Observations"   value={kpis.observations?.toLocaleString()} sub="Trading days"  color={C.cyan}   />
       </div>
 
       {/* Price chart */}
@@ -485,8 +530,8 @@ function OverviewPage({ priceData, kpis, annualStats }) {
               <ReferenceLine y={0} stroke={C.textMuted} strokeOpacity={0.5} />
               <Bar dataKey="mean" name="Mean Return %" radius={[4, 4, 0, 0]}
                    isAnimationActive={true}>
-                {annualStats.map((entry, i) => (
-                  <Cell key={i} fill={entry.mean >= 0 ? C.cyan : C.red} />
+                {annualStats.map((entry) => (
+                  <Cell key={entry.Year} fill={entry.mean >= 0 ? C.cyan : C.red} />
                 ))}
               </Bar>
             </BarChart>
@@ -523,8 +568,8 @@ function OverviewPage({ priceData, kpis, annualStats }) {
           <span style={{ color: C.cyan }}>◆</span> All Statistical Results
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12 }}>
-          {STAT_RESULTS.map((s, i) => (
-            <div key={i} style={{
+          {STAT_RESULTS.map((s) => (
+            <div key={s.label} style={{
               background: C.bg2, border: `1px solid ${s.color}22`,
               borderLeft: `3px solid ${s.color}`,
               borderRadius: "0 10px 10px 0", padding: "12px 16px",
@@ -543,6 +588,12 @@ function OverviewPage({ priceData, kpis, annualStats }) {
   );
 }
 
+OverviewPage.propTypes = {
+  priceData:   PropTypes.arrayOf(PropTypes.object).isRequired,
+  kpis:        PropTypes.object.isRequired,
+  annualStats: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
 function SectionPage({ section }) {
   const cols = section.charts.length === 1 ? 1
     : section.charts.length <= 3 ? section.charts.length
@@ -556,13 +607,21 @@ function SectionPage({ section }) {
         gridTemplateColumns: `repeat(${cols}, 1fr)`,
         gap: 20,
       }}>
-        {section.charts.map((chart, i) => (
-          <ChartCard key={i} chart={chart} sectionColor={section.color} />
+        {section.charts.map((chart) => (
+          <ChartCard key={chart.file} chart={chart} sectionColor={section.color} />
         ))}
       </div>
     </div>
   );
 }
+
+SectionPage.propTypes = {
+  section: PropTypes.shape({
+    charts:   PropTypes.arrayOf(PropTypes.object).isRequired,
+    findings: PropTypes.arrayOf(PropTypes.string).isRequired,
+    color:    PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 // ══════════════════════════════════════════════════════════════════════════════
 // APP
@@ -573,7 +632,6 @@ export default function App() {
   const [kpis, setKpis]             = useState({});
   const [annualStats, setAnnualStats] = useState([]);
   const [loading, setLoading]       = useState(true);
-  const [menuOpen, setMenuOpen]     = useState(false);
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -734,6 +792,20 @@ export default function App() {
         ::-webkit-scrollbar-thumb:hover { background: ${C.cyan}44; }
         @keyframes spin { to { transform: rotate(360deg); } }
         body { margin: 0; }
+        .kpi-card {
+          transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .kpi-card:hover {
+          transform: translateY(-3px);
+          box-shadow: var(--kpi-shadow);
+        }
+        .chart-card {
+          transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .chart-card:hover {
+          border-color: var(--chart-border) !important;
+          box-shadow: var(--chart-shadow);
+        }
       `}</style>
     </div>
   );
